@@ -32,9 +32,8 @@ public class BurnCPU extends ActionBarActivity {
         findViews();
         setListeners();
 
-        //CopyThread tt = new CopyThread();
-        //new Thread(tt).start();
-        //getRunningProcessNum();
+        CopyThread tt = new CopyThread();
+        new Thread(tt).start();
 
     }
 
@@ -137,7 +136,7 @@ public class BurnCPU extends ActionBarActivity {
         getRunningProcessNum();
 
         for (int i = 0; i < currentNumOfBurnCPUs; i++) {
-
+            ShellUtils.execCommand("kill -9 " + burnCortexA9Pid[i], false);
         }
     }
 
