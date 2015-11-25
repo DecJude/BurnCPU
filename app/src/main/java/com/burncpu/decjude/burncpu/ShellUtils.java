@@ -159,7 +159,7 @@ public class ShellUtils {
                     successMsg.append(s + "\n");
                 }
                 while ((s = errorResult.readLine()) != null) {
-                    errorMsg.append(s);
+                    errorMsg.append(s + "\n");
                 }
             }
         } catch (IOException e) {
