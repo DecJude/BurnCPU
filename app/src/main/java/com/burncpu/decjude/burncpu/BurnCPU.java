@@ -108,26 +108,24 @@ public class BurnCPU extends ActionBarActivity {
     }
 
     private void getRunningProcessNum() {
-        CommandResult commandResult = ShellUtils.execCommand("ps burn", false);
+        CommandResult commandResult = ShellUtils.execCommand("ps | grep burnCortexA9", false);
         String lines[] = commandResult.successMsg.toString().split("\n");
-        int lineCount = 0;
         int psCount = 0;
         currentNumOfBurnCPUs = 0;
         for(String line : lines) {
-
-            if (lineCount > 0) {
+            if (line != "") {
                 burnCortexA9Pid[psCount] = Integer.parseInt(line.substring(9,15).trim());
                 psCount ++;
             }
-            lineCount ++;
         }
         currentNumOfBurnCPUs = psCount;
         mPsBurn.setText(Integer.toString(currentNumOfBurnCPUs));
     }
 
     private void killBurnCPUProcess(int num) {
-
-        for (int i = 0; i < num; i++) {
+		getRunningProcessNum();
+        
+		for (int i = 0; i < num; i++) {
             ShellUtils.execCommand("kill -9 " + burnCortexA9Pid[i], false);
         }
     }
